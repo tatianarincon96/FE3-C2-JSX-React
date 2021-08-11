@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica-Mesas C2</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+        const productosEnStock = ["Monitor", "Mouse Gamer", "Procesador Intel", "Teclado mecánico"];
+        const productosFueraDeStock = ["Placa de video", "Auriculares", "Parlantes"];
+
+        function chooseList(listNumber) {
+            let lista;
+            if (listNumber == 1) {
+                lista = productosEnStock;
+            } else {
+                lista = productosFueraDeStock;
+            }
+            return lista;
+        }
+
+        function MyLi(props) {
+            return <li>{props.children}</li>
+        }
+
+        function MyUl(props) {
+            const selectedList = chooseList(props.list);
+            return <ul>{selectedList.map(el => (<MyLi>{el}</MyLi>))}</ul>
+        }
+
+        function MyHeader(props) {
+            return <header> <h1>{props.title}</h1> <MyUl list={props.list}/> </header>
+        }
+
+        function MyDiv() {
+            return <div>
+                <MyHeader title="En stock" list="1"/>
+                <MyHeader title="Sin stock" list="2"/>
+            </div>
+        }
+
+
+        const container = document.getElementById("root");
+
+        ReactDOM.render(<MyDiv/>, container);
+    </script>
+
+</body>
+
+</html>
