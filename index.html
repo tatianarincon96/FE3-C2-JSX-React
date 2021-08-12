@@ -19,9 +19,9 @@
         const productosEnStock = ["Monitor", "Mouse Gamer", "Procesador Intel", "Teclado mecánico"];
         const productosFueraDeStock = ["Placa de video", "Auriculares", "Parlantes"];
 
-        function chooseList(listNumber) {
+        function chooseList(listName) {
             let lista;
-            if (listNumber == 1) {
+            if (listName === "con-stock") {
                 lista = productosEnStock;
             } else {
                 lista = productosFueraDeStock;
@@ -29,32 +29,28 @@
             return lista;
         }
 
-        function MyLi(props) {
-            return <li>{props.children}</li>
-        }
-
-        function MyUl(props) {
-            const selectedList = chooseList(props.list);
-            return <ul>{selectedList.map(el => (<MyLi>{el}</MyLi>))}</ul>
-        }
-
         function MyHeader(props) {
-            return <header> <h1>{props.title}</h1> <MyUl list={props.list}/> </header>
+            const selectedList = chooseList(props.listName);
+            return <header> 
+                <h1>{props.title}</h1> 
+                <ul>{selectedList.map(el => (
+                    <li>{el}</li>
+                    ))}
+                </ul> 
+            </header>
         }
 
         function MyDiv() {
             return <div>
-                <MyHeader title="En stock" list="1"/>
-                <MyHeader title="Sin stock" list="2"/>
+                <MyHeader title="En stock" listName="con-stock"/>
+                <MyHeader title="Sin stock" listName="sin-stock"/>
             </div>
         }
 
-
-        const container = document.getElementById("root");
-
-        ReactDOM.render(<MyDiv/>, container);
+        ReactDOM.render(<MyDiv/>, document.getElementById("root"));
     </script>
 
 </body>
 
 </html>
+
